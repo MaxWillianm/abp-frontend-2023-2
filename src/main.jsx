@@ -8,7 +8,7 @@ import Produtos from './routes/Produtos';
 import AdicionaProduto from './routes/adiciona_produto.jsx';
 import Login from './routes/login.jsx';
 import Cadastro from './routes/cadastro.jsx';
-import View from './routes/view.jsx';
+import View from './routes/view.jsx'
 
 const router = createBrowserRouter([
   {
