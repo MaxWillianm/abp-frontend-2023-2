@@ -31,4 +31,3 @@ O sistema será voltado para lojistas que desejam comprar produtos online em for
 - CSS (Tailwind)
 - JavaScript
 - React
-- Radix UI
