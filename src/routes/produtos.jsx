@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom";
-
+import CaboExtensor from "../../public/images/cabo_extensor.jpg"
 
 
 export default function Produtos() {
@@ -10,33 +10,35 @@ export default function Produtos() {
   // const [carregando, setCarregando] = useState(true);
   // const [deletando, setDeletando] = useState(false);
 
-  useEffect(() => {
+ /* useEffect(() => {
     axios.get('http://localhost/backend-ABP-front/produto').then((response) => {
       setData(response.data);
     });
-  }, []);
+  }, []);*/
   return (
+
     <div className="container">
-      <div className="bg-black-div/90 border border-white rounded-xl  my-20 py-12 px-8">
-        {data && data.map((item) => (
-          <div key={item.Produto.id}>
-            <div className="flex items-center">
-              <div className="flex w-full flex-col">
-                <h1 className="font-bold text-white"> Nome: {item.Produto.nome}</h1>
-                <p className="text-white">Valor: R${item.Produto.valor}</p>
-                <p className="text-white">Quantidade: {item.Produto.quantidade}</p>
-              </div>
-              <button className="text-white px-5 py-3 bg-blue-high rounded-lg transition-all hover:bg-blue-light">Deletar</button>
-            </div>
-            <div className="w-full h-px border-b border-white my-6"></div>
-          </div>
-        ))}
-        {!data &&
-        <div className="flex w-full justify-center items-center">
-          <img src="../../public/svg/loading.svg" alt="" className="w-24 h-24" />
-        </div>
-        }
-      </div>
+      <div className="bg-black-div/90 border border-white rounded-xl mt-20 py-12 px-8">
+       
+      
+
+    <div className="grid gap-4 grid-cols-3 grid-rows-3">
+      
+    <div  >
+      <div className="w-80" ><img src={CaboExtensor} alt="" /></div>
+      <p class="text-blue-600/100" > nome: Cabo Extensor </p>
+      <p class="text-blue-600/100"> valor: R$350.00</p>
     </div>
+
+    <div  >
+      <div className="w-80" ><img src={CaboExtensor} alt="" /></div>
+      <p class="text-blue-600/100" >nome: Cabo Extensor </p>
+      <p class="text-blue-600/100"> valor: R$350.00</p>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    
   )
 }
