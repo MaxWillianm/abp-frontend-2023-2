@@ -5,9 +5,9 @@ function AdicionaProduto() {
   const [produto, setProduto] = useState({
     nome: '',
     valor: '',
-    quantidade: '',
     cor: '',
-    descricao: ''
+    descricao: '',
+    image: null
   });
   const [carregando, setCarregando] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -16,16 +16,22 @@ function AdicionaProduto() {
     event.preventDefault();
     setCarregando(true);
     try {
-      const data = JSON.stringify(produto);
-      const response = await axios.post('http://localhost/backend-ABP-front/produto/add', data, {});
+      const formData = new FormData();
+      formData.append('produto', JSON.stringify(produto));
+      formData.append('image', produto.image);
+      const response = await axios.post('http://localhost/backend-ABP-front/produto/add', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       console.log(response.data);
       setIsFormSubmitted(true);
       setProduto({
         nome: '',
         valor: '',
-        quantidade: '',
         cor: '',
-        descricao: ''
+        descricao: '',
+        image: null
       });
     }
     catch (error) {
@@ -35,8 +41,12 @@ function AdicionaProduto() {
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setProduto(prevProduto => ({ ...prevProduto, [name]: value }));
+    const { name, value, type } = event.target;
+    if (type === 'file') {
+      setProduto(prevProduto => ({ ...prevProduto, [name]: event.target.files[0] }));
+    } else {
+      setProduto(prevProduto => ({ ...prevProduto, [name]: value }));
+    }
   };
 
   return (
@@ -45,9 +55,9 @@ function AdicionaProduto() {
         <form id='formProduto' className='flex flex-col space-y-12' onSubmit={handleSubmit}>
           <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Nome' type="text" name="nome" value={produto.nome} onChange={handleChange} />
           <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Valor' type="number" name="valor" value={produto.valor} onChange={handleChange} />
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Quantidade' type="number" name="quantidade" value={produto.quantidade} onChange={handleChange} />
           <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='cor' type="text" name="cor" value={produto.cor} onChange={handleChange} />
           <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Descrição' type="text" name="descricao" value={produto.descricao} onChange={handleChange} />
+          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Imagem' type="file" name="image" onChange={handleChange} />
           <button className='text-white flex w-1/4 mx-auto justify-center items-center bg-blue-high rounded p-5 transition-all hover:bg-blue-light' type="submit" disabled={carregando}>
             {carregando ? <img src="../../public/svg/loading_white.svg" className='w-9 h-9' /> : 'Enviar'}
           </button>
