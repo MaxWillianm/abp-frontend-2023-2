@@ -42,6 +42,7 @@ function Login() {
       ...prevCredenciais,
       [name]: value,
     }));
+    console.log('credenciais -> ', credenciais);
   };
 
   return (

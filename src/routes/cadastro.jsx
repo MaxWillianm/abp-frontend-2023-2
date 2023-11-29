@@ -26,9 +26,11 @@ function CadastroUsuario() {
         throw new Error("Os campos de senha e confirmar senha não são iguais.");
       }
 
+      console.log('usuario -> ', usuario);
+      const Url = "http://localhost/backend-ABP-front/usuario/cadastrar";
       const data = JSON.stringify(usuario);
       const response = await axios.post(
-        "http://localhost/backend-ABP-front/usuario/cadastrar",
+        Url,
         data,
         {}
       );

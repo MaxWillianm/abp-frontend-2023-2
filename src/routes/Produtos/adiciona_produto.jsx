@@ -11,20 +11,26 @@ function AdicionaProduto() {
   });
   const [carregando, setCarregando] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const Url = 'http://localhost/backend-ABP-front/produto/add';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setCarregando(true);
+
     try {
       const formData = new FormData();
       formData.append('produto', JSON.stringify(produto));
       formData.append('image', produto.image);
-      const response = await axios.post('http://localhost/backend-ABP-front/produto/add', formData, {
+
+
+      const response = await axios.post(Url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(response.data);
+
+      console.log('response -> ', response.data);
+
       setIsFormSubmitted(true);
       setProduto({
         nome: '',
@@ -33,19 +39,19 @@ function AdicionaProduto() {
         descricao: '',
         image: null
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
     }
+
     setCarregando(false);
   };
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
     if (type === 'file') {
-      setProduto(prevProduto => ({ ...prevProduto, [name]: event.target.files[0] }));
+      setProduto((prevProduto) => ({ ...prevProduto, [name]: event.target.files[0] }));
     } else {
-      setProduto(prevProduto => ({ ...prevProduto, [name]: value }));
+      setProduto((prevProduto) => ({ ...prevProduto, [name]: value }));
     }
   };
 
