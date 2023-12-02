@@ -9,6 +9,7 @@ import AdicionaProduto from './routes/Produtos/adiciona_produto.jsx';
 import View from './routes/Produtos/view.jsx'
 import Login from './routes/login.jsx';
 import Cadastro from './routes/cadastro.jsx';
+import NotFound from './routes/notFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path:"produtos/view/:id",
         element:<View/>
+      },
+      {
+        path:"*",
+        element:<NotFound>404</NotFound>
       }
     ]
   }
