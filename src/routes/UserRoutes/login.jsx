@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 function Login() {
   const [credenciais, setCredenciais] = useState({
@@ -9,6 +11,7 @@ function Login() {
   const [carregando, setCarregando] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,13 +24,22 @@ function Login() {
 
       const data = JSON.stringify(credenciais);
       const response = await axios.post(
-        "http://localhost/backend-ABP-front/login",
+        "http://localhost/backend-ABP-front/usuario/login",
         data,
         {}
       );
+
+      if(response.data == "<pre>Usuário não encontrado</pre>"){
+        throw new Error("");
+      }
       console.log(response.data);
+
+      localStorage.setItem("usuario", JSON.stringify(response.data.Usuario));
+
       setIsFormSubmitted(true);
       setFormError("");
+      navigate('/');
+      toast.success('Login bem-sucedido!');
     } catch (error) {
       console.error(error.message);
       setFormError("Credenciais inválidas. Por favor, tente novamente.");
@@ -42,7 +54,6 @@ function Login() {
       ...prevCredenciais,
       [name]: value,
     }));
-    console.log('credenciais -> ', credenciais);
   };
 
   return (

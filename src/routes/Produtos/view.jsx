@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loading from '../../../public/svg/loading.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function View() {
   const [data, setData] = useState([]);
@@ -9,6 +11,23 @@ export default function View() {
 
   const { id } = useParams();
   const Url = `http://localhost/backend-ABP-front/produto/view/${id}`;
+  const navigate = useNavigate();
+
+  const addProdutoCarrinho = () => {
+    const usuario = localStorage.getItem('usuario');
+    if (usuario === null) {
+      navigate('/login');
+    } else {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const novoProduto = {
+        id: data.Produto.id,
+      };
+      carrinho.push(novoProduto);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      toast.success('Produto adicionado ao carrinho!');
+    }
+  }
+
 
   useEffect(() => {
     axios.get(Url)
@@ -20,7 +39,7 @@ export default function View() {
         console.error(error);
         setLoading(false);
       });
-  }, [id]);
+  }, [Url, id]);
 
   return (
     <div className="font-sans">
@@ -43,14 +62,17 @@ export default function View() {
               <div className="list-disc text-white pl-4 mb-4">
                 <p>{data.Produto.descricao}</p>
               </div>
-
+              
               <div className='flex flex-col'>
                 <h2 className="text-xl text-white font-semibold mb-4">R$ {data.Produto.valor}</h2>
 
-                <button onClick={null} className="bg-red-500 text-white py-2 px-4 transition-all rounded hover:bg-red-700">Adicionar ao Carrinho</button>
+                <button onClick={addProdutoCarrinho} className="bg-red-500 text-white py-2 px-4 transition-all rounded hover:bg-red-700">Adicionar ao Carrinho</button>
               </div>
             </div>
           </section>
+          <div className='container justify-end flex'>
+            <Link to="/produtos" className="bg-gray-800 text-white py-2 px-8 transition-all rounded hover:bg-gray-700">Voltar</Link>
+          </div>
         </>
       )}
     </div>

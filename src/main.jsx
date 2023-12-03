@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -7,9 +7,11 @@ import Home from './routes/home.jsx';
 import Produtos from './routes/Produtos/produtos.jsx';
 import AdicionaProduto from './routes/Produtos/adiciona_produto.jsx';
 import View from './routes/Produtos/view.jsx'
-import Login from './routes/login.jsx';
-import Cadastro from './routes/cadastro.jsx';
+import Login from './routes/UserRoutes/login.jsx';
+import Cadastro from './routes/UserRoutes/cadastro.jsx';
 import NotFound from './routes/notFound.jsx';
+import Kart from './routes/Kart/kart.jsx';
+import Historico from './routes/Produtos/historico.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<Home/>
+      },
+      {
+        path:"/login",
+        element:<Login/>
       },
       {
         path:"/produtos",
@@ -41,6 +47,14 @@ const router = createBrowserRouter([
         element:<View/>
       },
       {
+        path:"/carrinho",
+        element:<Kart/>
+      },
+      {
+        path:"/historico",
+        element:<Historico/>
+      },
+      {
         path:"*",
         element:<NotFound>404</NotFound>
       }
@@ -49,7 +63,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  // </React.StrictMode>
 )

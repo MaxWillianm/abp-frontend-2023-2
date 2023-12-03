@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+import VerifyLogin from "../routes/Controllers/verifyLogin";
+
 export default function Home() {
+
+  useEffect(() => {
+    VerifyLogin();
+  }, []);
+
   return (
     <div className="container">
       <div className="bg-black-div/90 border border-white rounded-xl mt-20 py-12 px-8">

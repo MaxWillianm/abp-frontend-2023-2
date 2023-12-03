@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom";
 import Loading from '../../../public/svg/loading.svg'
+import VerifyLogin from './../Controllers/verifyLogin';
 
 export default function Produtos() {
 
@@ -20,6 +21,8 @@ export default function Produtos() {
         setLoading(false);
       });
   }, []);
+
+  VerifyLogin();
 
   return (
     <div className="container">
