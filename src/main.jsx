@@ -12,6 +12,8 @@ import Cadastro from './routes/UserRoutes/cadastro.jsx';
 import NotFound from './routes/notFound.jsx';
 import Kart from './routes/Kart/kart.jsx';
 import Historico from './routes/Produtos/historico.jsx';
+import Admin from './routes/Admin/admin.jsx';
+import EditProduto from './routes/Produtos/edit_produto.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
         element:<Produtos/>
       },
       {
-        path:"/produtos/add",
+        path:"/admin/add",
         element:<AdicionaProduto/>
       },
       {
@@ -56,8 +58,16 @@ const router = createBrowserRouter([
       },
       {
         path:"*",
-        element:<NotFound>404</NotFound>
-      }
+        element:<NotFound />
+      },
+      {
+        path:"/admin",
+        element:<Admin/>
+      },
+      {
+        path:"/admin/edit/:id",
+        element:<EditProduto/>
+      },
     ]
   }
 ]);

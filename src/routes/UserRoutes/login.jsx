@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 function Login() {
@@ -42,7 +43,7 @@ function Login() {
       toast.success('Login bem-sucedido!');
     } catch (error) {
       console.error(error.message);
-      setFormError("Credenciais inválidas. Por favor, tente novamente.");
+      toast.error('Usuário não encontrado!');
     }
 
     setCarregando(false);
@@ -59,6 +60,12 @@ function Login() {
   return (
     <div className="container">
       <div className="bg-black-div/90 border border-white rounded-xl my-20 py-12 px-8">
+        <div className="flex justify-center mb-9">
+          <img src="../../public/svg/logo.svg" alt="" className="w-44 h-44" />
+        </div>
+        <div>
+          <h1 className="text-white text-center mb-3 text-3xl font-bold">Login</h1>
+        </div>
         <form
           id="formLogin"
           className="flex flex-col space-y-12"
@@ -97,6 +104,12 @@ function Login() {
           {formError && <p className="text-white">{formError}</p>}
           {isFormSubmitted && <p className="text-white">Login bem-sucedido!</p>}
         </form>
+        <div className="flex justify-center mt-8 items-center">
+          <p className="text-white">Não possui uma conta?</p>
+          <Link to="/cadastro" className="text-white ml-2 hover:underline">
+            Cadastre-se
+          </Link>
+        </div>
       </div>
     </div>
   );

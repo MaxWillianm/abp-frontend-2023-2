@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom";
 import Loading from '../../../public/svg/loading.svg'
-import VerifyLogin from './../Controllers/verifyLogin';
+import VerifyLogin from "../Controllers/verifyLogin";
 
 export default function Produtos() {
 
@@ -11,6 +11,7 @@ export default function Produtos() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    VerifyLogin();
     axios.get('http://localhost/backend-ABP-front/produto')
       .then((response) => {
         setData(response.data);
@@ -21,8 +22,6 @@ export default function Produtos() {
         setLoading(false);
       });
   }, []);
-
-  VerifyLogin();
 
   return (
     <div className="container">
@@ -36,7 +35,7 @@ export default function Produtos() {
             {data.map((produto) => (
               <div className="w-40" key={produto.Produto.id}>
                 <Link to={`/produtos/view/${produto.Produto.id}`}>
-                  <img className="w-full h-32 object-cover" src={`data:image/jpeg;base64,${produto.Produto.imagem}`} alt="Cabo Extensor" />
+                  <img className="w-full h-32 object-cover" src={`data:image/jpeg;base64,${produto.Produto.imagem}`} alt="Market X" />
                   <h1 className="text-white text-2xl">{produto.Produto.nome}</h1>
                   <h2 className="text-white text-xl">R$ {produto.Produto.valor}</h2>
                 </Link>

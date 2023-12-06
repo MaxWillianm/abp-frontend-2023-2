@@ -65,6 +65,12 @@ export default function Kart() {
         data_hora: new Date().toISOString()
       };
 
+      if(compraData.produtos.length === 0)
+        {
+          toast.error('Adicione algum produto ao carrinho para comprar!');
+          return;
+        }
+        
       const comprasAnteriores = JSON.parse(localStorage.getItem('compra')) || [];
       const comprasAtualizadas = [...comprasAnteriores, compraData];
 
@@ -75,6 +81,7 @@ export default function Kart() {
 
     } catch (error) {
       console.error(error);
+      toast.error('Adicione algum produto ao carrinho para comprar!');
     }
   };
 

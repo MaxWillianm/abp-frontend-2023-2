@@ -1,7 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import InputFone from "../../components/inputFone";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CadastroUsuario() {
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState({
     nome: "",
     email: "",
@@ -59,6 +64,10 @@ function CadastroUsuario() {
   return (
     <div className="container">
       <div className="bg-black-div/90 border border-white rounded-xl my-4 py-10 px-8">
+        <div className="flex flex-col justify-center items-center mb-4">
+          <img src="../../public/svg/logo.svg" className="w-32" />
+          <h1 className="text-white text-3xl mt-8 font-bold">Cadastro</h1>
+        </div>
         <form
           id="formUsuario"
           className="flex flex-col space-y-12"
@@ -72,10 +81,8 @@ function CadastroUsuario() {
             value={usuario.nome}
             onChange={handleChange}
           />
-          <input
-            className="ml-5 bg-black-input text-white rounded px-4 py-3"
-            placeholder="Celular"
-            type="text"
+          <InputFone
+            label="Celular"
             name="celular"
             value={usuario.celular}
             onChange={handleChange}
@@ -128,9 +135,18 @@ function CadastroUsuario() {
             )}
           </button>
           {isFormSubmitted && (
-            <p className="text-white">Formulário enviado com sucesso!</p>
+            navigate('/login'),
+            toast.success('Cadastro realizado com sucesso!')
           )}
         </form>
+        <div className="flex justify-center mt-4">
+          <p className="text-white">
+            Já possui uma conta?{" "}
+            <Link to="/login" className="text-white hover:underline">
+              Faça login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

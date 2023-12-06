@@ -52,26 +52,35 @@ export default function View() {
           <header className="bg-gray-800 text-white mb-12 text-center py-4">
             <h1 className="text-2xl">{data.Produto.nome}</h1>
           </header>
-          <section className="flex space-x-20 justify-center p-4">
-            <div className="max-w-md w-full">
-              <img src={`data:image/jpeg;base64,${data.Produto.imagem}`} alt="Produto Azul" className="max-w-full h-auto border border-gray-300 p-1" />
-            </div>
-
-            <div className="max-w-md w-full">
-              <h2 className="text-xl text-white font-semibold mb-4">Descrição</h2>
-              <div className="list-disc text-white pl-4 mb-4">
-                <p>{data.Produto.descricao}</p>
+          <div className='container'>
+            <div className="bg-black-div/90 border border-white rounded-xl mt-12 py-12 px-8">
+              <div className="flex flex-wrap justify-center gap-12">
+                <section className="flex space-x-20 justify-center p-4">
+                  <div className="max-w-md w-full">
+                    <img src={`data:image/jpeg;base64,${data.Produto.imagem}`} alt="Produto Azul" className="max-w-full h-auto border p-1" />
+                  </div>
+                  <div className="max-w-md w-full">
+                    
+                    <h2 className="text-xl text-white font-semibold mb-4">Descrição</h2>
+                    <div className="list-disc text-white pl-4 mb-4">
+                      <p>{data.Produto.descricao}</p>
+                    </div>
+                    
+                    <div className='flex items-center space-x-3'>
+                      <h2 className="text-xl text-white font-semibold">Cor:</h2>
+                    <p className='text-white'>{data.Produto.cor}</p>
+                    </div>
+                    <div className='flex flex-col'>
+                      <h2 className="text-xl text-white font-semibold mb-4">R$ {data.Produto.valor}</h2>
+                      <button onClick={addProdutoCarrinho} className="bg-red-500 text-white py-2 px-4 transition-all rounded hover:bg-red-700">Adicionar ao Carrinho</button>
+                    </div>
+                  </div>
+                </section>
               </div>
-              
-              <div className='flex flex-col'>
-                <h2 className="text-xl text-white font-semibold mb-4">R$ {data.Produto.valor}</h2>
-
-                <button onClick={addProdutoCarrinho} className="bg-red-500 text-white py-2 px-4 transition-all rounded hover:bg-red-700">Adicionar ao Carrinho</button>
+              <div className='container justify-end flex'>
+                <Link to="/produtos" className="bg-gray-800 text-white py-2 px-8 transition-all rounded hover:bg-gray-700">Voltar</Link>
               </div>
             </div>
-          </section>
-          <div className='container justify-end flex'>
-            <Link to="/produtos" className="bg-gray-800 text-white py-2 px-8 transition-all rounded hover:bg-gray-700">Voltar</Link>
           </div>
         </>
       )}

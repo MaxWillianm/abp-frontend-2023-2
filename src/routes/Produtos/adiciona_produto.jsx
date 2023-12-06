@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
+import VerifyLogin from '../Controllers/verifyLogin';
 
-function AdicionaProduto() {
+export default function AdicionaProduto() {
   const [produto, setProduto] = useState({
     nome: '',
     valor: '',
@@ -21,6 +22,10 @@ function AdicionaProduto() {
     descricao: yup.string().required('Descrição é obrigatória'),
     image: yup.mixed().required('Imagem é obrigatória')
   });
+
+  useEffect(() => {
+    VerifyLogin();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,24 +75,27 @@ function AdicionaProduto() {
   };
 
   return (
-    <div className='container'>
-      <div className="bg-black-div/90 border border-white rounded-xl  my-20 py-12 px-8">
-        <form id='formProduto' className='flex flex-col space-y-12' onSubmit={handleSubmit}>
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Nome' type="text" name="nome" value={produto.nome} onChange={handleChange} />
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Valor' type="number" name="valor" value={produto.valor} onChange={handleChange} />
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='cor' type="text" name="cor" value={produto.cor} onChange={handleChange} />
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Descrição' type="text" name="descricao" value={produto.descricao} onChange={handleChange} />
-          <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Imagem' type="file" name="image" onChange={handleChange} />
-          <button className='text-white flex w-1/4 mx-auto justify-center items-center bg-blue-high rounded p-5 transition-all hover:bg-blue-light' type="submit" disabled={carregando}>
-            {carregando ? <img src="../../public/svg/loading_white.svg" className='w-9 h-9' /> : 'Enviar'}
-          </button>
-          {isFormSubmitted == true ? (<p className='text-white'>Formulário enviado com sucesso!</p>) : (
-            <p className='text-white'>Preencha todos os campos</p>
-          )} 
-        </form>
+    <>
+      <div className="bg-gray-800 text-white mb-12 text-center py-4">
+        <h1 className="text-2xl">Adicionando Novo Produto</h1>
       </div>
-    </div>
+      <div className='container'>
+        <div className="bg-black-div/90 border border-white rounded-xl  my-20 py-12 px-8">
+          <form id='formProduto' className='flex flex-col space-y-12' onSubmit={handleSubmit}>
+            <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Nome' type="text" name="nome" value={produto.nome} onChange={handleChange} />
+            <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Valor' type="number" name="valor" value={produto.valor} onChange={handleChange} />
+            <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='cor' type="text" name="cor" value={produto.cor} onChange={handleChange} />
+            <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Descrição' type="text" name="descricao" value={produto.descricao} onChange={handleChange} />
+            <input className='ml-5 bg-black-input text-white rounded px-4 py-3' placeholder='Imagem' type="file" name="image" onChange={handleChange} />
+            <button className='text-white flex w-1/4 mx-auto justify-center items-center bg-blue-high rounded p-5 transition-all hover:bg-blue-light' type="submit" disabled={carregando}>
+              {carregando ? <img src="../../public/svg/loading_white.svg" className='w-9 h-9' /> : 'Enviar'}
+            </button>
+            {isFormSubmitted == true ? (<p className='text-white'>Formulário enviado com sucesso!</p>) : (
+              <p className='text-white'>Preencha todos os campos</p>
+            )} 
+          </form>
+        </div>
+      </div>
+    </>
   );
 }
-
-export default AdicionaProduto;
